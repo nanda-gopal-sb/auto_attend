@@ -5,8 +5,6 @@ import 'package:wifi_scan/wifi_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-bool espPresent = false;
-
 class wifiSearch extends StatefulWidget {
   const wifiSearch({super.key});
   @override
@@ -14,32 +12,40 @@ class wifiSearch extends StatefulWidget {
 }
 
 class _wifiSearchState extends State<wifiSearch> {
-  late List accessPoints;
+  bool espPresent = false;
+  List<WiFiAccessPoint> accessPoints = [];
+  @override
+  void initState() {
+    super.initState();
+    _getScannedResults();
+  }
 
   void _getScannedResults() async {
     // check platform support and necessary requirements
-    final can =
-        await WiFiScan.instance.canGetScannedResults(askPermissions: true);
-    if (can case CanGetScannedResults.yes) {
+    final can = await WiFiScan.instance.canGetScannedResults();
+    if (can == CanGetScannedResults.yes) {
+      print("Scanning");
       accessPoints = await WiFiScan.instance.getScannedResults();
+      print(accessPoints.length);
       for (int i = 0; i < accessPoints.length; i++) {
-        if (accessPoints[i].ssid == 'ESP32 WiFI AP') {
+        print(accessPoints[i].ssid);
+        if (accessPoints[i].ssid == 'razadn2') {
           espPresent = true;
           break;
         }
+      }
+      if (espPresent) {
+        Navigator.push(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const StudentHandler()),
+        );
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _getScannedResults();
-    if (espPresent) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const StudentHandler()),
-      );
-    }
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(

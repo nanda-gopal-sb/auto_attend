@@ -1,8 +1,33 @@
-import 'package:auto_attend/attendance/wifi_search.dart';
+import 'package:auto_attend/auth/authFace.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_attend/auth/registerFace.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  @override
+  void initState() {
+    super.initState();
+    _checkDatabaseExistence();
+  }
+
+  bool _databaseExists = false;
+  Future<bool> _checkDatabaseExistence() async {
+    final databasePath = join(await getDatabasesPath(), 'test1.db');
+    final dbExists = await databaseExists(databasePath);
+    setState(() {
+      _databaseExists = dbExists;
+    });
+    return dbExists;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,10 +42,18 @@ class LandingPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const wifiSearch()),
-                );
+                if (_databaseExists == true) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AuthFace()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Registerface()),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
