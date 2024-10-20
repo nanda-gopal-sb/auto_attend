@@ -15,12 +15,13 @@ class _StudentHandlerState extends State<StudentHandler> {
   Map<String, dynamic>? firstObject;
   Map<String, dynamic>? changedObject;
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('https://digitalwars.loca.lt'));
+    final response = await http.get(Uri.parse('https://true.loca.lt'));
     if (response.statusCode >= 200 || response.statusCode <= 299) {
       setState(() {
         List<dynamic> data = json.decode(response.body);
         if (data.isNotEmpty) {
           changedObject = data[0];
+          print(changedObject.toString());
         } else {
           firstObject?['Subject'] = 'Not Found';
           firstObject?['Teacher'] = 'Not Found';
@@ -49,7 +50,7 @@ class _StudentHandlerState extends State<StudentHandler> {
   }
 
   void postData() async {
-    final url = Uri.parse('https://digitalwars.loca.lt');
+    final url = Uri.parse('https://true.loca.lt');
     if (firstObject?['Attendance'] == 'Not Found') {
       return;
     }
@@ -64,11 +65,9 @@ class _StudentHandlerState extends State<StudentHandler> {
     if (response.statusCode >= 200 || response.statusCode <= 299) {
       // Request successful
       print('POST request successful');
-      changeRoute();
     } else {
       // Request failed
       print('Failed to make POST request');
-      changeRoute();
     }
   }
 

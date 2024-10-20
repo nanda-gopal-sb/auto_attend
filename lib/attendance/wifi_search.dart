@@ -29,7 +29,7 @@ class _wifiSearchState extends State<wifiSearch> {
       print(accessPoints.length);
       for (int i = 0; i < accessPoints.length; i++) {
         print(accessPoints[i].ssid);
-        if (accessPoints[i].ssid == 'razadn2') {
+        if (accessPoints[i].ssid == 'MAC') {
           espPresent = true;
           break;
         }

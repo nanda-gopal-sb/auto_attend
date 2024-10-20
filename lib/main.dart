@@ -440,6 +440,7 @@
 // //     ..hideCurrentSnackBar()
 // //     ..showSnackBar(SnackBar(content: Text(message)));
 // // }
+import 'package:auto_attend/attendance/student_handler.dart';
 import 'package:flutter/material.dart';
 import 'attendance/landing_page.dart';
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:auto_attend/attendance/wifi_search.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -45,7 +46,7 @@ class _RegisterfaceState extends State<Registerface> {
   final TextEditingController _collegeIdController = TextEditingController();
   Future<void> openDB() async {
     database = openDatabase(
-      join(await getDatabasesPath(), 'test1.db'),
+      join(await getDatabasesPath(), 'test6.db'),
       onCreate: (db, version) {
         return db.execute(
           'CREATE TABLE USER(id INTEGER PRIMARY KEY, name TEXT, classId INTEGER, image BLOB)',
@@ -143,6 +144,11 @@ class _RegisterfaceState extends State<Registerface> {
                     await openDB();
                     print(dog.convertToString());
                     await insertDog(dog);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const wifiSearch()),
+                    );
                   } catch (e) {
                     //print('Error: $e');
                   }

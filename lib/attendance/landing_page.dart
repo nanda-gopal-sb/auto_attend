@@ -1,3 +1,4 @@
+import 'package:auto_attend/attendance/teacher_handler.dart';
 import 'package:auto_attend/auth/authFace.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_attend/auth/registerFace.dart';
@@ -20,7 +21,7 @@ class _LandingPageState extends State<LandingPage> {
 
   bool _databaseExists = false;
   Future<bool> _checkDatabaseExistence() async {
-    final databasePath = join(await getDatabasesPath(), 'test1.db');
+    final databasePath = join(await getDatabasesPath(), 'test6.db');
     final dbExists = await databaseExists(databasePath);
     setState(() {
       _databaseExists = dbExists;
@@ -33,7 +34,7 @@ class _LandingPageState extends State<LandingPage> {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.lightGreen,
         title: const Text('Auto Attend'),
       ),
       body: Center(
@@ -56,7 +57,7 @@ class _LandingPageState extends State<LandingPage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.amber,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -66,13 +67,17 @@ class _LandingPageState extends State<LandingPage> {
             const SizedBox(height: 16),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
               onPressed: () {
-                // Handle Teachers button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TeacherHandler()),
+                );
               },
               child: const Text('Teachers'),
             ),

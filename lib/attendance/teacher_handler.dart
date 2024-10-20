@@ -12,14 +12,20 @@ class TeacherHandler extends StatefulWidget {
 }
 
 class _TeacherHandlerState extends State<TeacherHandler> {
+  Map<String, dynamic>? changedObject;
   void postData() async {
-    final url = Uri.parse('https://slimy-bushes-start.loca.lt');
+    final url = Uri.parse('https://true.loca.lt');
     final response = await http.post(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{'Subject': "Maths", 'Teacher': "Raju"}),
+      body: jsonEncode(<String, String>{
+        'Subject': "Maths",
+        'Teacher': "Raju",
+        'Class': "IT-B",
+        'Attendance': "True"
+      }),
     );
     if (response.statusCode == 200) {
       // Request successful
@@ -27,6 +33,19 @@ class _TeacherHandlerState extends State<TeacherHandler> {
     } else {
       // Request failed
       print('Failed to make POST request');
+    }
+  }
+
+  void getData() async {
+    final url = Uri.parse('https://true.loca.lt');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // Request successful
+      print('GET request successful');
+    } else {
+      // Request failed
+      print('Failed to make GET request');
     }
   }
 
@@ -63,7 +82,7 @@ class _TeacherHandlerState extends State<TeacherHandler> {
               onPressed: () {
                 postData();
               },
-              child: const Text('Teachers'),
+              child: const Text('Start Attendance'),
             ),
           ],
         ),
