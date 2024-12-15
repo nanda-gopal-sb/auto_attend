@@ -26,7 +26,7 @@ AutoAttend is an automated attendance management system designed to simplify and
 
 ## Usage
 
-1. Start the application:
+1. Start the application:(this only works on android for now)
     ```sh
     flutter run
     ```
