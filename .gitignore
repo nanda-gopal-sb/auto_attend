@@ -41,3 +41,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+node_modules
+const.js
+db
+localhost.session.sql
+.vscode/
+.idea
+attendance.session.sql
+const-local.js
