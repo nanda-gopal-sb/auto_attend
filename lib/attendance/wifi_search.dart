@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, camel_case_types
 
 import 'package:auto_attend/attendance/student_handler.dart';
+import 'package:auto_attend/auth/authFace.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -38,7 +39,7 @@ class _wifiSearchState extends State<wifiSearch> {
         Navigator.push(
           // ignore: use_build_context_synchronously
           context,
-          MaterialPageRoute(builder: (context) => const StudentHandler()),
+          MaterialPageRoute(builder: (context) => const AuthFace()),
         );
       }
     }

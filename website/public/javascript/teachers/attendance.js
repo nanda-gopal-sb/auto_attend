@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		class_name: param.class,
 		subject_name: param.subject,
 	};
-	fetch("/getStudentClasses", {
+	fetch("/getStudentsForAttendance", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -42,16 +42,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	})
 		.then((response) => response.json())
 		.then((data) => {
+			console.log("Student data:", data);
 			const studentList = document.getElementById("studentList");
 			data.forEach((student) => {
 				const studentDiv = document.createElement("div");
 				studentDiv.className = "student";
 				studentDiv.innerHTML = `
-                <div class="checkbox-wrapper">
-                <input type="checkbox" id="${student.student_id}">
-                </div>
-                <label for="student${student.student_id}">${student.student_name}</label>
-                <i class="fas fa-user status-icon"></i>`;
+				<div class="checkbox-wrapper" style="display: none;">
+				<input type="checkbox" id="${student.student_id}">
+				</div>
+				<label for="student${student.student_id}">${student.student_name}</label>
+				<i class="fas fa-user status-icon"></i>`;
 				studentList.appendChild(studentDiv);
 			});
 		})
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						"-" +
 						date.getDate().toString();
 					document
-						.querySelectorAll("#studentList input[type='checkbox']:checked")
+						.querySelectorAll("#studentList input[type='checkbox']")
 						.forEach((checkbox) => {
 							checkedStudents.push(checkbox.id);
 						});

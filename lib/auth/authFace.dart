@@ -1,36 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:auto_attend/attendance/student_handler.dart';
 import 'package:auto_attend/attendance/wifi_search.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_face_api/flutter_face_api.dart';
-
-class User {
-  final int id;
-  final String name;
-  final int classId;
-  final Uint8List image;
-  const User({
-    required this.id,
-    required this.name,
-    required this.classId,
-    required this.image,
-  });
-  Map<String, Object?> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'classId': classId,
-      'image': image,
-    };
-  }
-
-  String convertToString() {
-    return 'id: $id, name: $name, classId: $classId, image: $image';
-  }
-}
+import 'package:auto_attend/database/utils.dart';
+import '../database/user.dart';
 
 class AuthFace extends StatefulWidget {
   const AuthFace({super.key});
@@ -39,15 +17,14 @@ class AuthFace extends StatefulWidget {
 }
 
 class _AuthFaceState extends State<AuthFace> {
+  List<User> _users = [];
   bool isProcessing = true;
   bool match = false;
   bool upload = false;
   MatchFacesImage? mfImage1;
   MatchFacesImage? mfImage2;
   var faceSdk = FaceSDK.instance;
-  var _status = "nil";
   var _similarityStatus = "nil";
-  var _livenessStatus = "nil";
   final ImagePicker _picker = ImagePicker();
   late Future<Database> database;
   setImage(Uint8List bytes, ImageType type, int number) {
@@ -64,10 +41,8 @@ class _AuthFaceState extends State<AuthFace> {
 
   matchFaces() async {
     if (mfImage1 == null || mfImage2 == null) {
-      _status = "Both images required!";
       return false;
     }
-    _status = "Processing...";
     var request = MatchFacesRequest([mfImage1!, mfImage2!]);
     var response = await faceSdk.matchFaces(request);
     var split = await faceSdk.splitComparedFaces(response.results, 0.50); //0.75
@@ -81,39 +56,6 @@ class _AuthFaceState extends State<AuthFace> {
       _similarityStatus = _similarityStatus;
     });
     print(_similarityStatus);
-    _status = "Ready";
-  }
-
-  Future<void> openDB() async {
-    database = openDatabase(
-      join(await getDatabasesPath(), 'test6.db'),
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE USER(id INTEGER PRIMARY KEY, name TEXT, classId INTEGER, image BLOB)',
-        );
-      },
-      version: 1,
-    );
-    print('Database opened');
-  }
-
-  Future<List<User>> dogs() async {
-    // Get a reference to the database.
-    final Database db = await database;
-    // Query the table for all the dogs.
-    final List<Map<String, Object?>> dogMaps = await db.query('USER');
-    if (dogMaps.isEmpty) {
-      return [];
-    }
-    return [
-      for (final {
-            'id': id as int,
-            'name': name as String,
-            'classId': classId as int,
-            'image': image as Uint8List,
-          } in dogMaps)
-        User(id: id, name: name, classId: classId, image: image),
-    ];
   }
 
   @override
@@ -130,19 +72,22 @@ class _AuthFaceState extends State<AuthFace> {
                   onPressed: () async {
                     upload = true;
                     final XFile? image =
-                        await _picker.pickImage(source: ImageSource.camera);
+                        await _picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       setState(() {
                         _image = image;
                       });
                     }
-                    await openDB();
-                    final List<User> userList = await dogs();
-                    if (userList.isEmpty) {
+                    final userMaps =
+                        await DatabaseHelper.instance.queryAllUsers();
+                    _users = userMaps
+                        .map((userMap) => User.fromMap(userMap))
+                        .toList();
+
+                    if (_users.isEmpty) {
                       print("No users");
                     }
-                    setImage(userList[0].image, ImageType.EXTERNAL, 1);
-                    print(userList[0].toString());
+                    setImage(_users[0].image, ImageType.EXTERNAL, 1);
                     setImage(
                         File(image!.path).readAsBytesSync(), ImageType.LIVE, 2);
                     await matchFaces();
@@ -156,7 +101,7 @@ class _AuthFaceState extends State<AuthFace> {
                         // ignore: use_build_context_synchronously
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const wifiSearch()),
+                            builder: (context) => const StudentHandler()),
                       );
                     }
                   },

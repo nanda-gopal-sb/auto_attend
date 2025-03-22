@@ -6,6 +6,8 @@ const { Pool } = require("pg");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+var students = [];
+
 const funcs = require("../db-helpers/main.js");
 const db = require("../db-helpers/const-local.js");
 const pool = new Pool({
@@ -104,4 +106,18 @@ router.post("/getTeacherDetails", async (req, res) => {
         });
     client.release();
 });
+
+router.post("/addStudentForAttendance", (req, res) => {
+    const { student_id, student_name } = req.body;
+    students.push({ student_id, student_name });
+    res.send({ message: "Student added successfully"});
+});
+
+router.post("/getStudentsForAttendance", (req, res) => {
+    const uniqueStudents = Array.from(new Set(students.map(student => JSON.stringify(student)))).map(student => JSON.parse(student));
+    res.send(uniqueStudents);
+});
+
+
+
 module.exports = router;

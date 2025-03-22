@@ -66,6 +66,7 @@ async function addAttendance(client, studentIds, assignmentId, currentDate) {
       VALUES ($1, $2, $3, $4)
     `;
 	for (const studentId of studentIds) {
+		console.log(studentId);
 		client.query(insertQuery, [assignmentId, studentId, currentDate, true]);
 	}
 
@@ -228,11 +229,11 @@ function getAttandance(client, student_id) {
 	const query = `    
 	SELECT
     s.subject_name,
-    COUNT(CASE WHEN a.present = TRUE THEN 1 END) AS present_count,
-    COUNT(a.attendance_id) AS total_classes,
+    COUNT(DISTINCT CASE WHEN a.present = TRUE THEN a.attendance_id END) AS present_count,
+    COUNT(DISTINCT a.attendance_id) AS total_classes,
     CASE 
-        WHEN COUNT(a.attendance_id) = 0 THEN 0
-        ELSE (COUNT(CASE WHEN a.present = TRUE THEN 1 END) * 100.0 / COUNT(a.attendance_id))
+        WHEN COUNT(DISTINCT a.attendance_id) = 0 THEN 0
+        ELSE (COUNT(DISTINCT CASE WHEN a.present = TRUE THEN a.attendance_id END) * 100.0 / COUNT(DISTINCT a.attendance_id))
     END AS attendance_percentage
 	FROM
     	subjects AS s
