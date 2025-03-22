@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:auto_attend/attendance/wifi_search.dart';
+import 'package:auto_attend/pages/home.dart';
+//import 'package:auto_attend/attendance/wifi_search.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -147,7 +148,7 @@ class _RegisterfaceState extends State<Registerface> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const wifiSearch()),
+                          builder: (context) => const HomeNavigation()),
                     );
                   } catch (e) {
                     //print('Error: $e');
