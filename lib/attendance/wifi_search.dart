@@ -26,10 +26,10 @@ class _wifiSearchState extends State<wifiSearch> {
     if (can == CanGetScannedResults.yes) {
       print("Scanning");
       accessPoints = await WiFiScan.instance.getScannedResults();
-      print(accessPoints.length);
+      print(accessPoints[0].ssid);
       for (int i = 0; i < accessPoints.length; i++) {
         print(accessPoints[i].ssid);
-        if (accessPoints[i].ssid == 'MAC') {
+        if (accessPoints[i].ssid == 'AndroidWifi') {
           espPresent = true;
           break;
         }
@@ -46,30 +46,24 @@ class _wifiSearchState extends State<wifiSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          title: const Text('Auto Attend'),
-        ),
-        body: Column(
-          children: [
-            const SizedBox(height: 180),
-            Center(
-              child: LoadingAnimationWidget.newtonCradle(
-                color: Colors.black,
-                size: 250,
-              ),
+    return Scaffold(
+      body: Column(
+        children: [
+          const SizedBox(height: 180),
+          Center(
+            child: LoadingAnimationWidget.newtonCradle(
+              color: Colors.black,
+              size: 250,
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Searching for WiFi...',
-              style: TextStyle(
-                fontSize: 20,
-              ),
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Searching for WiFi...',
+            style: TextStyle(
+              fontSize: 20,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

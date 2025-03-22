@@ -1,4 +1,4 @@
-function getSecKeys(client){
+function getSecKeys(client) {
 	const query = `SELECT * FROM special_keys;`;
 	return client.query(query);
 }
@@ -351,7 +351,26 @@ function getTeacherDetails(client, teacher_id) {
 	`;
 	return client.query(query);
 }
+function getAllSubjects(client, student_id) {
+	const query = `
+	SELECT DISTINCT
+	s.subject_id,
+		s.subject_name,
+		s.department_id,
+		s.subject_type
+	FROM
+	public.student_enrollments se
+	JOIN
+	public.teacher_assignments ta ON se.class_id = ta.class_id
+	JOIN
+	public.subjects s ON ta.subject_id = s.subject_id
+	WHERE
+	se.student_id = ${student_id};
+	`;
+	return client.query(query);
+}
 module.exports = {
+	getAllSubjects,
 	getSecKeys,
 	getTeacherDetails,
 	getDangerSubjects,

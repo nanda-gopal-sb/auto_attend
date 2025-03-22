@@ -15,7 +15,7 @@ class SubjectsPage extends StatefulWidget {
 
 class _SubjectsPageState extends State<SubjectsPage> {
   List<User> _users = [];
-
+  var subjects = [];
   @override
   void initState() {
     getSubjects();
@@ -23,22 +23,23 @@ class _SubjectsPageState extends State<SubjectsPage> {
   }
 
   Future<void> _fetchUsers() async {
-    print("fetching users");
     final userMaps = await DatabaseHelper.instance.queryAllUsers();
     setState(() {
       _users = userMaps.map((userMap) => User.fromMap(userMap)).toList();
     });
-    print(_users[0].id);
   }
 
   Future<void> getSubjects() async {
-    print("getting subjects");
     await _fetchUsers();
     final response = await http.post(
       Uri.parse('$url/getAttendanceDetails'),
       body: {'student_id': _users[0].id.toString()},
     );
-    print(response.body);
+    final subjects = jsonDecode(response.body);
+    print(subjects);
+    setState(() {
+      this.subjects = subjects;
+    });
   }
 
   @override
@@ -47,16 +48,24 @@ class _SubjectsPageState extends State<SubjectsPage> {
       appBar: AppBar(
         title: const Text('Enrolled Subjects'),
       ),
-      // body: ListView.builder(
-      //   itemCount: subjects.length,
-      //   itemBuilder: (context, index) {
-      //     final subject = subjects[index];
-      //     return ListTile(
-      //       title: Text(subject['name']!),
-      //       subtitle: Text('ID: ${subject['id']}'),
-      //     );
-      //   },
-      // ),
+      body: ListView.builder(
+        itemCount: subjects.length,
+        itemBuilder: (context, index) {
+          final subject = subjects[index];
+          return ListTile(
+            title: Text(subject['subject_name']!),
+            subtitle: Text(
+              '${subject['present_count']}/${subject['total_classes']}',
+              style: const TextStyle(fontSize: 19.0),
+            ),
+            trailing: Text(
+              '${subject['attendance_percentage'].toString().split('.')[0]}%',
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -57,5 +57,17 @@ router.post("/dangerSubject", async (req, res) => {
         });
     client.release();
 });
-
+router.post("/allSubjects", async (req, res) => {
+    const client = await pool.connect();
+    funcs
+        .getAllSubjects(client, req.body.student_id)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error adding subject");
+        });
+    client.release();
+});
 module.exports = router;
