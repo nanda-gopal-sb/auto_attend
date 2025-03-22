@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Admin Dashboard</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="../../css/admin/admin.css"/>
+	</head>
+	<body>
+		<div class="dashboard-container">
+			<h2 id="header" class="text-4xl font-bold mb-8 text-gray-800">
+				Welcome Admin
+			</h2>
+			<div class="grid">
+				<div id="studentHandler" class="admin-button">
+					<i class="fas fa-user-graduate"></i> Student Manager
+				</div>
+				<div id="departmentHandler" class="admin-button">
+					<i class="fas fa-building"></i> Department Manager
+				</div>
+				<div id="classHandler" class="admin-button">
+					<i class="fas fa-chalkboard"></i> Class Manager
+				</div>
+				<div id="teacherHandler" class="admin-button">
+					<i class="fas fa-chalkboard-teacher"></i> Teacher Manager
+				</div>
+				<div id="subjectHandler" class="admin-button">
+					<i class="fas fa-book"></i> Subjects Manager
+				</div>
+			</div>
+			<button id="logout">Logout</button>
+		</div>
+		<script src="../../javascript/admin/admin.js"></script>
+	</body>
+</html>

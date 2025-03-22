@@ -1,0 +1,16 @@
+for classes - 
+    each deptartment has an id - 
+        1 - IT
+        2-  CS
+        3-  SF
+        4-  CIVIL
+        5-  MECH
+        6-  EC
+        7-  EEE
+    each_sem- 
+        1-8 for 8 sems
+    A section or B section or No Section 
+     - 0/1/9
+
+    eg - S4 IT-B is - 411
+         S3 SF is - 339

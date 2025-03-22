@@ -1,0 +1,111 @@
+body {
+	font-family: Arial, sans-serif;
+	background: linear-gradient(to right, #1b5692, #583a6d);
+	margin: 0;
+	padding: 0;
+}
+.container {
+	max-width: 950px;
+	margin: 50px auto;
+	text-align: left;
+}
+h1 {
+	font-size: 2.5rem;
+	color: #fff;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 25px;
+}
+.card {
+	background: white;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	width: 90%;
+	margin: 0 auto;
+	min-height: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+}
+
+/* Form Styling */
+label {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+}
+input,
+select {
+	width: 97%;
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+
+/* Button Styling */
+button {
+	width: 100%;
+	padding: 12px;
+	margin-top: 16px;
+	border: none;
+	color: white;
+	font-size: 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Button Colors */
+#addTeacher {
+	background: #0bc759;
+}
+
+#deleteTeacher {
+	background: #ff1900;
+}
+
+#assignClass {
+	background: #26a1f3;
+}
+
+/* Card Colors */
+.add-teacher {
+	border-top: 5px solid #2ecc71;
+}
+
+.delete-teacher {
+	border-top: 5px solid #e74c3c;
+}
+
+.assign-class {
+	border-top: 5px solid #3498db;
+}
+
+/* Button Hover Effects */
+button:hover {
+	opacity: 0.8;
+}
+
+/* Notification Styling */
+.notification {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background-color: #4caf50;
+	color: white;
+	padding: 15px;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	display: none;
+	z-index: 1000;
+}

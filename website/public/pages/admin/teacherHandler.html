@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<title>Teacher Handler</title>
+		<link href="../../css/admin/teacherHandler.css"  rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Teacher Management system</h1>
+			<div class="grid">
+				<div class="card add-teacher">
+					<h2>Add Teacher</h2>
+					<label>Teacher Name</label>
+					<input
+						type="text"
+						id="teacherName"
+						placeholder="Enter teacher name"
+					/>
+					<label>Teacher Email</label>
+					<input
+						type="text"
+						id="teacherEmail"
+						placeholder="Enter teacher email"
+					/>
+					<label>Teacher ID</label>
+					<input type="text" id="teacherId" placeholder="Enter teacher ID" />
+					<label>Select Department</label>
+					<select id="addDepartmentList"></select>
+					<button id="addTeacher">Submit</button>
+				</div>
+				<div class="card delete-teacher">
+					<h2>Delete Teacher</h2>
+					<label>Select Teacher</label>
+					<select id="deleteTeacherList"></select>
+					<button id="deleteTeacher">Delete</button>
+				</div>
+				<div class="card assign-class">
+					<h2>Assign Class</h2>
+					<label>Select Teacher</label>
+					<select id="teacherAssignList"></select>
+					<label>Select Subject</label>
+					<select id="subjectList"></select>
+					<label>Select Class</label>
+					<select id="classList"></select>
+					<button id="assignClass">Assign</button>
+				</div>
+			</div>
+		</div>
+		<div class="notification" id="notification"></div>
+		<script src="../../javascript/admin/teacherHandler.js"></script>
+	</body>
+</html>

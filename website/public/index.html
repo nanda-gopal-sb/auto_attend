@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+		<script
+			src="https://code.jquery.com/jquery-3.7.1.js"
+			integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+			crossorigin="anonymous"
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+			integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<title>Attendance-Tracker</title>
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+		
+			body {
+				font-family: 'Roboto', sans-serif;
+				background: linear-gradient(135deg, rgba(31, 41, 87, 0.7) 0%, rgba(58, 32, 82, 0.7) 100%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				padding: 1.5rem;
+				box-sizing: border-box;
+				position: relative; /* Required for pseudo-element positioning */
+			}
+		
+			/* Pseudo-element for background image with reduced opacity */
+			body::before {
+				content: '';
+				background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Administrative_Block_%2C_Cusat.jpg/1024px-Administrative_Block_%2C_Cusat.jpg");
+				background-repeat: no-repeat;
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0.5; /* Adjust opacity here (0.5 = 50% opacity) */
+				z-index: -1; /* Place it behind the content */
+			}
+		
+			#login-container {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				max-width: 350px;
+				background: rgba(0, 0, 0, 0.6); /* Black background with transparency */
+				border-radius: 10px;
+				box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+				padding: 2rem;
+				text-align: center;
+				box-sizing: border-box;
+				animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+			}
+		
+			/* Fade-in animation for the login container */
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(-20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		
+			#loginForm {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+			}
+		
+			.login-icon {
+				font-size: 5rem;
+				color: white; /* White icon */
+				margin-bottom: 1.5rem;
+				display: block;
+				text-align: center;
+				filter: drop-shadow(0 4px 6px rgba(255, 255, 255, 0.4)); /* Subtle shadow for the icon */
+				animation: float 3s ease-in-out infinite; /* Floating animation */
+			}
+		
+			/* Floating animation for the person icon */
+			@keyframes float {
+				0%, 100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-10px);
+				}
+			}
+		
+			.form-group {
+				margin-bottom: 1.25rem;
+				text-align: left;
+				width: 100%;
+			}
+		
+			label {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-weight: 600;
+				text-align: left;
+				color: white; /* White text */
+			}
+		
+			input, select {
+				width: 100%;
+				padding: 0.625rem;
+				border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for inputs */
+				border-radius: 5px;
+				font-size: 1.3rem;
+				box-sizing: border-box;
+				background: rgb(255, 255, 255); /* Slightly transparent white background */
+				color: rgb(0, 0, 0); /* White text */
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for inputs */
+				transition: all 0.3s ease; /* Smooth transition for focus effect */
+			}
+		
+			input:focus, select:focus {
+				border-color: #667eea; /* Highlight border on focus */
+				box-shadow: 0 0 10px rgba(102, 126, 234, 0.5); /* Glow effect on focus */
+				transform: scale(1.02); /* Slightly enlarge on focus */
+			}
+		
+			input::placeholder {
+				color: rgba(255, 255, 255, 0.7); /* Placeholder text in lighter white */
+			}
+		
+			#signin {
+				background: linear-gradient(to right, #b9416f, #633d8a);
+				color: white;
+				border: none;
+				align-items: center;
+				border-radius: 5px;
+				font-size: 1.3rem;
+				cursor: pointer;
+				transition: all 0.3s ease; /* Smooth transition for hover effect */
+				width: 100%;
+				padding-bottom: 0.625rem;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for the button */
+			}
+			#signup {
+				background: linear-gradient(to right, #b9416f, #633d8a);
+				color: white;
+				border: none;
+				align-items: center;
+				border-radius: 5px;
+				font-size: 1.3rem;
+				cursor: pointer;
+				transition: all 0.3s ease; /* Smooth transition for hover effect */
+				width: 100%;
+				padding-bottom: 0.625rem;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for the button */
+			}
+					
+			#signin:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+				background: linear-gradient(to right, #3a4a8f, #7a4da0); /* Brighter gradient on hover */
+			}
+					
+			#signup:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+				background: linear-gradient(to right, #3a4a8f, #7a4da0); /* Brighter gradient on hover */
+			}
+
+			@media (max-width: 480px) {
+				#login-container {
+					max-width: 100%;
+					padding: 1.25rem;
+				}
+		
+				.login-icon {
+					font-size: 4rem;
+				}
+			}
+		
+			@media (max-height: 600px) {
+				#login-container {
+					max-height: 90vh;
+					overflow-y: auto;
+					padding: 1.5rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="login-container">
+			<form id="loginForm">
+				<span class="material-icons login-icon">person</span>
+				<div class="form-group">
+					<label for="username">Username:</label>
+					<input type="text" id="username" name="username" placeholder="Enter your username" required />
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" placeholder="Enter your password" required />
+				</div>
+				<div class="form-group">
+					<label for="userType">Type of User:</label>
+					<select id="userType" name="userType" required>
+						<option value="student">Student</option>
+						<option value="teacher">Teacher</option>
+						<option value="admin">Admin</option>
+					</select>
+				</div>
+			</form>
+			<button id="signin">Sign In</button>
+			<button id="signup">Sign Up (Admins)</button>
+		</div>
+	</body>
+	<script>
+		$("#signin").click(function () {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var userType = $("#userType").val();
+			data = {
+				username: username,
+				password: password,
+				userType: userType,
+			};
+			function success(data) {
+				if (data.loginStatus == false) {
+					alert("No such user, try again");
+				} else {
+					window.location.pathname = `${data.user_type}/${data.user_id}`;
+				}
+			}
+			$.ajax({
+				type: "POST",
+				url: "/login",
+				data: data,
+				success: success,
+			});
+		});
+		$("#signup").click(function () {
+			window.location.pathname = "/signup";
+		});
+	</script>
+</html>

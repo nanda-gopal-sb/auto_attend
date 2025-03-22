@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Student Management System</title>
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="../../css/admin/studentHandler.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1 style="text-align: center; color: white">
+				Student Management System
+			</h1>
+
+			<div class="grid">
+				<!-- Add Student -->
+				<div class="card add-student">
+					<h3><i class="fas fa-user-plus"></i> Add Student</h3>
+					<label>Student Name</label>
+					<input
+						type="text"
+						id="studentName"
+						placeholder="Enter student name"
+					/>
+					<label>Student Email</label>
+					<input
+						type="text"
+						id="student_email"
+						placeholder="Enter student email"
+					/>
+					<label>Student ID</label>
+					<input type="text" id="studentId" placeholder="Enter student ID" />
+					<label>Department</label>
+					<select id="selectDepartmentAdd"></select>
+					<button id="submitStudent">Add Student</button>
+				</div>
+
+				<!-- Delete Student -->
+				<div class="card delete-student">
+					<h3><i class="fas fa-user-times"></i> Delete Student</h3>
+					<label>Student</label>
+					<select id="selectStudentDelete"></select>
+					<label>Department</label>
+					<select id="selectDepartmentDelete"></select>
+					<button id="submitDelete">Delete Student</button>
+				</div>
+
+				<!-- Assign Class -->
+				<div class="card assign-class">
+					<h3><i class="fas fa-user-graduate"></i> Assign Class</h3>
+					<label>Student</label>
+					<select id="selectStudentAssign"></select>
+					<label>Class</label>
+					<select id="selectClassAssign"></select>
+					<button id="addAllotment">Assign Class</button>
+				</div>
+
+				<!-- Change Class -->
+				<div class="card change-class">
+					<h3><i class="fas fa-exchange-alt"></i> Change Class</h3>
+					<label>Student</label>
+					<select id="selectStudentChange"></select>
+					<label>Class</label>
+					<select id="selectClassChange"></select>
+					<button id="changeClass">Change Class</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Notification Div -->
+		<div id="notification"></div>
+	</body>
+
+	<script src="../../javascript/admin/studentHandler.js"></script>
+</html>

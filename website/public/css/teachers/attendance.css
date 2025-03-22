@@ -1,0 +1,141 @@
+body {
+	font-family: "Poppins", sans-serif;
+	background: linear-gradient(135deg, #34382d 0%, #7b816e 100%);
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	flex-direction: column;
+}
+.container {
+	background: #ffffff;
+	padding: 35px;
+	border-radius: 20px;
+	box-shadow: 0 10px 30px rgba(61, 65, 57, 0.3);
+	width: 450px;
+	position: relative;
+	overflow: hidden;
+}
+.container::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: linear-gradient(90deg, #d86643, #e98b71);
+}
+h1 {
+	font-size: 28px;
+	margin-bottom: 40px;
+	color: #363a30;
+	position: relative;
+	padding-bottom: 15px;
+	text-align: center;
+}
+h1::after {
+	content: "";
+	/* position: absolute; */
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 60px;
+	height: 3px;
+	background: #b34929;
+	border-radius: 2px;
+}
+.student-list {
+	text-align: left;
+	margin-bottom: 30px;
+}
+.student {
+	display: flex;
+	align-items: center;
+	padding: 12px 15px;
+	border-radius: 12px;
+	transition: all 0.3s ease;
+	margin-bottom: 8px;
+	border: 1px solid transparent;
+}
+.student:hover {
+	background: rgba(113, 119, 105, 0.1);
+	border: 1px solid rgba(113, 119, 105, 0.2);
+	transform: translateX(5px);
+}
+.student label {
+	color: #33382c;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	flex-grow: 1;
+}
+.checkbox-wrapper {
+	position: relative;
+	margin-right: 15px;
+}
+input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #717769;
+	border-radius: 6px;
+	cursor: pointer;
+	position: relative;
+	transition: all 0.3s ease;
+}
+input[type="checkbox"]:checked {
+	background: #d65a34;
+	border-color: #d27355;
+}
+input[type="checkbox"]:checked::after {
+	content: "✓";
+	position: absolute;
+	color: white;
+	font-size: 14px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+button {
+	background: linear-gradient(135deg, #363b2b 0%, #404731 100%);
+	color: #ffffff;
+	border: none;
+	padding: 14px 20px;
+	border-radius: 12px;
+	cursor: pointer;
+	font-size: 16px;
+	width: 100%;
+	transition: all 0.3s ease;
+	font-weight: 500;
+	position: relative;
+	overflow: hidden;
+}
+button:hover {
+	background: linear-gradient(135deg, #af5235 0%, #e98b71 100%);
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(210, 115, 85, 0.3);
+}
+.status-icon {
+	margin-left: auto;
+	color: #22271a;
+	opacity: 0.5;
+}
+.notification {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background-color: #4caf50;
+	color: white;
+	padding: 15px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+	z-index: 1000;
+}
+.notification.error {
+	background-color: #f44336;
+}

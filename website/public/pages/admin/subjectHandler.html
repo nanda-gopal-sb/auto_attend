@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Handler</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../../css/admin/subjectHandler.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 >Subject Management system</h1>
+        <div class="grid">
+            <div class="card add-subject">
+                <h3>Add Subject</h3>
+                <label>Subject Name</label>
+                <input id="subjectName" name="subjectName" type="text">
+                <label>Subject ID</label>
+                <input id="subjectId" name="subjectId" type="text">
+                <label>Select Department</label>
+                <select id="selectDepartment"></select>
+                <label>Type of Course</label>
+                <select id="specialCourse">
+                    <option>Honours</option>
+                    <option>Minors</option>
+                    <option>Normal</option>
+                </select>
+                <button id="submitSubject">Submit</button>
+            </div>
+            <div class="card delete-subject">
+                <h3>Delete Subject</h3>
+                <label>Select Subject</label>
+                <select id="selectSubjects"></select>
+                <button id="deleteSubject">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div
+        id="notification"
+        class="hidden fixed top-4 right-4 bg-blue-500 text-white p-4 rounded shadow-lg">
+    </div>
+	<script src="../../javascript/admin/subjectHandler.js"></script>
+</html>

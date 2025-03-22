@@ -1,0 +1,131 @@
+body {
+	font-family: Arial, sans-serif;
+	background: linear-gradient(to right, #1b5692, #583a6d);
+	margin: 0;
+	padding: 0;
+	box-shadow: #333;
+}
+
+.container {
+	max-width: 950px;
+	margin: 50px auto;
+	text-align: left;
+}
+
+h1 {
+	font-size: 2.5rem;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+/* Grid Layout */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 25px;
+}
+
+/* Card Styling */
+.card {
+	background: white;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	width: 90%; /* Ensuring equal width */
+	margin: 0 auto;
+	min-height: 350px; /* Ensures equal height */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+}
+
+/* Form Styling */
+label {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+input,
+select {
+	width: 97%;
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+
+/* Button Styling */
+button {
+	width: 100%;
+	padding: 12px;
+	margin-top: 16px; /* Aligns button to the bottom */
+	border: none;
+	color: white;
+	font-size: 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Button Colors */
+#submitStudent {
+	background: #0bc759;
+}
+
+#submitDelete {
+	background: #ff1900;
+}
+
+#addAllotment {
+	background: #26a1f3;
+}
+
+#changeClass {
+	background: #ff9900;
+}
+
+/* Card Colors */
+.add-student {
+	border-top: 5px solid #2ecc71;
+}
+
+.delete-student {
+	border-top: 5px solid #e74c3c;
+}
+
+.assign-class {
+	border-top: 5px solid #3498db;
+}
+
+.change-class {
+	border-top: 5px solid #f39c12;
+}
+
+/* Ensuring Delete Card Matches Height */
+.delete-student {
+	min-height: 350px; /* Matches Add Student height */
+}
+
+/* Button Hover Effects */
+button:hover {
+	opacity: 0.8;
+}
+
+/* Notification Styling */
+#notification {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background: #333;
+	color: white;
+	padding: 15px;
+	border-radius: 6px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	display: none;
+	z-index: 1000;
+}
