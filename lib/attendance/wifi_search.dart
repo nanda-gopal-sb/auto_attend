@@ -30,7 +30,7 @@ class _wifiSearchState extends State<wifiSearch> {
       print(accessPoints[0].ssid);
       for (int i = 0; i < accessPoints.length; i++) {
         print(accessPoints[i].ssid);
-        if (accessPoints[i].ssid == 'AndroidWifi') {
+        if (accessPoints[i].ssid == 'IT-B') {
           espPresent = true;
           break;
         }

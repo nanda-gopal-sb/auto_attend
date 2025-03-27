@@ -15,13 +15,13 @@ class DatabaseHelper {
 
   Future<Database> initDb() async {
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'attendance2.db');
+    String path = join(databasesPath, 'attendance6.db');
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<bool> isDatabaseCreated() async {
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'attendance2.db');
+    String path = join(databasesPath, 'attendance6.db');
     return databaseExists(path);
   }
 
@@ -44,5 +44,10 @@ class DatabaseHelper {
   Future<int> insertUser(User user) async {
     Database db = await instance.db;
     return await db.insert('students', user.toMap());
+  }
+
+  Future<int> deleteUser(int? id) async {
+    Database db = await instance.db;
+    return await db.delete('students', where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -69,7 +69,6 @@ class _LandingPageState extends State<LandingPage> {
               const SizedBox(height: 20),
               TextField(
                 controller: passwordController,
-                obscureText: true,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
@@ -94,6 +93,8 @@ class _LandingPageState extends State<LandingPage> {
                   : const Text('No image selected.'),
               ElevatedButton(
                 onPressed: () async {
+                  print(usernameController.text);
+                  print(passwordController.text);
                   final response = await http.post(
                     Uri.parse('$url/login'),
                     body: {
@@ -103,6 +104,7 @@ class _LandingPageState extends State<LandingPage> {
                     },
                   );
                   final responseBody = jsonDecode(response.body);
+                  print(responseBody);
                   if (responseBody['user_id'] != null &&
                       responseBody['user_id'] is int) {
                     final User user = User(

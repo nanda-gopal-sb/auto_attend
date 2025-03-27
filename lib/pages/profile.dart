@@ -1,3 +1,4 @@
+import 'package:auto_attend/attendance/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_attend/database/utils.dart';
 import '../database/user.dart';
@@ -55,8 +56,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // Add logout functionality here
+                    onPressed: () async {
+                      final del = await DatabaseHelper.instance
+                          .deleteUser(_users[0].id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LandingPage()),
+                      );
                     },
                     child: const Text('Logout'),
                   ),

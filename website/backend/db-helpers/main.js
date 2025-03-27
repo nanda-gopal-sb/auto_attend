@@ -229,28 +229,40 @@ function getAttandance(client, student_id) {
 	const query = `    
 	SELECT
     s.subject_name,
-    COUNT(DISTINCT CASE WHEN a.present = TRUE THEN a.attendance_id END) AS present_count,
-    COUNT(DISTINCT a.attendance_id) AS total_classes,
+    COUNT(CASE WHEN a.present = TRUE THEN 1 END) AS present_count,
+    subquery.total_classes,
     CASE 
-        WHEN COUNT(DISTINCT a.attendance_id) = 0 THEN 0
-        ELSE (COUNT(DISTINCT CASE WHEN a.present = TRUE THEN a.attendance_id END) * 100.0 / COUNT(DISTINCT a.attendance_id))
+        WHEN subquery.total_classes = 0 THEN 0
+        ELSE (COUNT(CASE WHEN a.present = TRUE THEN 1 END) * 100.0 / subquery.total_classes)
     END AS attendance_percentage
 	FROM
-    	subjects AS s
+    subjects AS s
 	JOIN
-    	teacher_assignments AS ta ON s.subject_id = ta.subject_id
+    teacher_assignments AS ta ON s.subject_id = ta.subject_id
 	JOIN
-    	student_enrollments AS se ON ta.class_id = se.class_id
+    student_enrollments AS se ON ta.class_id = se.class_id
 	JOIN
-    	students AS st ON se.student_id = st.student_id
+    students AS st ON se.student_id = st.student_id
 	LEFT JOIN
-    	attendance AS a ON ta.assignment_id = a.assignment_id AND st.student_id = a.student_id
+    attendance AS a ON ta.assignment_id = a.assignment_id AND st.student_id = a.student_id
+	JOIN
+    (
+        SELECT
+            ta.subject_id,
+            COUNT(a.attendance_id) AS total_classes
+        FROM
+            teacher_assignments AS ta
+        LEFT JOIN
+            attendance AS a ON ta.assignment_id = a.assignment_id
+        GROUP BY
+            ta.subject_id
+    ) AS subquery ON s.subject_id = subquery.subject_id
 	WHERE
-    	st.student_id = ${student_id}
+    st.student_id = ${student_id}
 	GROUP BY
-    	s.subject_name
+    s.subject_name, subquery.total_classes
 	ORDER BY
-    	s.subject_name;`;
+    s.subject_name;`;
 	return client.query(query);
 }
 function getDangerSubjects(client, student_id) {

@@ -72,7 +72,7 @@ class _AuthFaceState extends State<AuthFace> {
                   onPressed: () async {
                     upload = true;
                     final XFile? image =
-                        await _picker.pickImage(source: ImageSource.gallery);
+                        await _picker.pickImage(source: ImageSource.camera);
                     if (image != null) {
                       setState(() {
                         _image = image;
