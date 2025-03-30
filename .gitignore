@@ -50,3 +50,4 @@ localhost.session.sql
 .idea
 attendance.session.sql
 const-local.js
+db.go
