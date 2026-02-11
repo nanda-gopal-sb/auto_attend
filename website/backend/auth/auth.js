@@ -7,7 +7,6 @@ const { Pool } = require("pg");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
-
 const funcs = require("../db-helpers/main.js");
 const db = require("../db-helpers/const-local.js");
 
@@ -23,7 +22,7 @@ const pool = new Pool({
 router.use(                           // saved
 	session({
 		store: new pgSession({
-			pool: pool, 
+			pool: pool,
 			tableName: "session",
 		}),
 		secret: "THE KEY",
@@ -37,7 +36,7 @@ router.post("/login", async (req, res) => {
 	if (req.body.userType === "admin") { // got from the frontend 
 		const dataToSend = {
 			user_id: "no_user_found",
-			user_type:"",
+			user_type: "",
 			loginStatus: false,
 		};
 		funcs
@@ -46,11 +45,10 @@ router.post("/login", async (req, res) => {
 				console.log(result.rows);
 				for (let i = 0; i < result.rows.length; i++) {
 					if (req.body.username === result.rows[i].username &&
-						req.body.password === result.rows[i].password) 
-					{
+						req.body.password === result.rows[i].password) {
 						dataToSend.user_id = result.rows[i].user_id;
 						dataToSend.loginStatus = true;
-						dataToSend.user_type="admin"
+						dataToSend.user_type = "admin"
 						req.session.isAuth = true;
 						break;
 					}
@@ -65,7 +63,7 @@ router.post("/login", async (req, res) => {
 	if (req.body.userType === "student") {
 		const dataToSend = {
 			user_id: "no_user_found",
-			user_type:"",
+			user_type: "",
 			loginStatus: false,
 		};
 		funcs
@@ -79,7 +77,7 @@ router.post("/login", async (req, res) => {
 					) {
 						dataToSend.user_id = result.rows[i].user_id;
 						dataToSend.loginStatus = true;
-						dataToSend.user_type="student"
+						dataToSend.user_type = "student"
 						req.session.isAuth = true;
 						break;
 					}
@@ -94,7 +92,7 @@ router.post("/login", async (req, res) => {
 	if (req.body.userType === "teacher") {
 		const dataToSend = {
 			user_id: "no_user_found",
-			user_type:"",
+			user_type: "",
 			loginStatus: false,
 		};
 		funcs
@@ -108,7 +106,7 @@ router.post("/login", async (req, res) => {
 					) {
 						dataToSend.user_id = result.rows[i].user_id;
 						dataToSend.loginStatus = true;
-						dataToSend.user_type="teacher"
+						dataToSend.user_type = "teacher"
 						req.session.isAuth = true;
 						break;
 					}
@@ -123,8 +121,8 @@ router.post("/login", async (req, res) => {
 	client.release();
 });
 router.post("/logout", async (req, res) => {
-	req.session.destroy((err)=>{
-		if(err) console.log(err);
+	req.session.destroy((err) => {
+		if (err) console.log(err);
 	});
 	res.redirect("/");
 });

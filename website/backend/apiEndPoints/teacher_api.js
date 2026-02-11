@@ -37,7 +37,7 @@ router.post("/getStudentClasses", async (req, res) => {
     const client = await pool.connect();
     console.log(req.body);
     funcs
-        .getStudents_Classes(client, req.body.subject_name,req.body.class_name)
+        .getStudents_Classes(client, req.body.subject_name, req.body.class_name)
         .then((result) => {
             res.send(result.rows);
         })
@@ -52,7 +52,7 @@ router.post("/getAssignmentId", async (req, res) => {
     const client = await pool.connect();
     console.log(req.body);
     funcs
-        .getAssignmentId(client, req.body.student_id,req.body.subject_name, req.body.teacher_id)
+        .getAssignmentId(client, req.body.student_id, req.body.subject_name, req.body.teacher_id)
         .then((result) => {
             res.send(result.rows);
         })
@@ -67,7 +67,7 @@ router.post("/addAttendance", async (req, res) => {
     const client = await pool.connect();
     console.log(req.body);
     funcs
-        .addAttendance(client, req.body.studentIds,req.body.assignmentId, req.body.currDate)
+        .addAttendance(client, req.body.studentIds, req.body.assignmentId, req.body.currDate)
         .then((result) => {
             res.send(result.rows);
         })
@@ -82,7 +82,7 @@ router.post("/getReport", async (req, res) => {
     const client = await pool.connect();
     console.log(req.body);
     funcs
-        .getAttandanceReport(client, req.body.class_name,req.body.subject_name)
+        .getAttandanceReport(client, req.body.class_name, req.body.subject_name)
         .then((result) => {
             res.send(result.rows);
         })
@@ -110,7 +110,7 @@ router.post("/getTeacherDetails", async (req, res) => {
 router.post("/addStudentForAttendance", (req, res) => {
     const { student_id, student_name } = req.body;
     students.push({ student_id, student_name });
-    res.send({ message: "Student added successfully"});
+    res.send({ message: "Student added successfully" });
 });
 
 router.post("/getStudentsForAttendance", (req, res) => {
